@@ -1,15 +1,17 @@
-import { forecastType } from "../types/Type"
-import styled from "styled-components"
+import styled, { ThemeProvider } from "styled-components"
 
 const NowWeather = styled.h1`
     font-size: 22px;
 `;
 
 const MoreWeather = styled.div`
-    width: 100%;
+    width: auto;
     height: auto;
     display: flex;
-    overflow: scroll;
+    overflow-x: scroll;
+    background: ${({ theme }: { theme: any }) => theme.boxColor};
+    border-radius: 21px;
+    margin: 12px;
 `;
 
 const WeatherList = styled.div`
@@ -19,9 +21,16 @@ const WeatherList = styled.div`
     text-align: center;
 `;
 
-type Props = {
-    data: forecastType
-}
+const WeatherCountry = styled.div`
+    font-size: 23px;
+`;
+
+const PresentWeather = styled.div`
+    width: 100%;
+    height: auto;
+    margin: 10px;
+    background: ${({ theme }: { theme: any }) => theme.boxColor};
+`;
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
     <>
@@ -41,31 +50,36 @@ const getSunTime = (timestamp: number): string => {
     return `${hours} : ${minutes}`
 }
 
-export const Forecast = ({ data }: Props): JSX.Element => {
+export const Forecast = ({ data }: any): JSX.Element => {
     const today = data.list[0]
     return (
-        <div>
-            <h2>{data.name}</h2>
-            <h2>({data.country})</h2>
-            <NowWeather>
-                <Degree temp={Math.round(today.main.temp)} />
-            </NowWeather>
-            <img src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
-            <p>{today.weather[0].description}</p>
-            <p>{today.weather[0].main}</p>
-            <p>최고온도: <Degree temp={Math.ceil(today.main.temp_max)} /></p>
-            <p>최저온도: <Degree temp={Math.floor(today.main.temp_min)} /></p>
+        <>
+            <PresentWeather>
+                <WeatherCountry>
+                    <span>{data.name}, ({data.country})</span>
+                </WeatherCountry>
+                <NowWeather>
+                    <Degree temp={Math.round(today.main.temp)} />
+                </NowWeather>
+                <img src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
+                <p>{today.weather[0].description}</p>
+                <p>{today.weather[0].main}</p>
+                <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /></p>
+                <p>최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
+            </PresentWeather>
             <MoreWeather>
-                {data.list.map((itm, i) => (
+                {data.list.map((itm: any, i: any) => (
                     <WeatherList key={i}>
-                        <p>{i === 0 ? '지금' : new Date(itm.dt * 1000).getHours()}시</p>
+                        <p>{i === 0 ? '지금' : `${new Date(itm.dt * 1000).getHours()}시`}</p>
                         <img src={`http://openweathermap.org/img/wn/${itm.weather[0].icon}@2x.png`} />
                         <Degree temp={Math.round(itm.main.temp)} />
                     </WeatherList>
                 ))
-                }</MoreWeather>
+                }
+            </MoreWeather>
             <p>{getSunTime(data.sunrise)}</p>
             <p>{getSunTime(data.sunset)}</p>
-        </div >
+        </>
     )
+
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react"
+import { useState, useEffect, ChangeEvent, useCallback, useLayoutEffect } from "react"
 import { optionType, forecastType } from "../../types/Type";
 
 export const useForecast = () => {
@@ -54,7 +54,15 @@ export const useForecast = () => {
         }
     }, [city])
 
+    const [theme, setTheme] = useState<string>('light');
+    const toggleTheme = useCallback(() => {
+        const updatedTheme = theme === "light" ? "dark" : "light";
+        setTheme(updatedTheme);
+        localStorage.setItem("theme", updatedTheme);
+    }, [theme])
+
+
     return {
-        term, options, forecast, onInputChange, onOptionSelect, onSubmit
+        term, theme, setTheme, options, forecast, onInputChange, onOptionSelect, onSubmit, toggleTheme
     }
 }
