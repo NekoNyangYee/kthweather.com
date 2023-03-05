@@ -24,6 +24,12 @@ export const GlobalStyle = createGlobalStyle`
         color: ${({ theme }: { theme: any }) => theme.textColor};
     } 
 
+    @media screen and (max-width: 480px) {
+        body {
+            max-width: 10vh;
+        }
+    }
+
     @media screen and (max-width: 769px) {
         body {
             max-width: 100vh;
@@ -32,7 +38,7 @@ export const GlobalStyle = createGlobalStyle`
 
     @media screen and (min-width: 900px) {
         body {
-            max-width: 150vh;
+            max-width: 100vh;
         }
     }
 
