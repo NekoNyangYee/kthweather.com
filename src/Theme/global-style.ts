@@ -3,8 +3,11 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
     body {
         background: ${({ theme }: { theme: any }) => theme.bgColor};
-        transition: all 0.25s linear;
+        transition: all 0.25s ease-in-out;
         color: ${({ theme }: { theme: any }) => theme.textColor};
+        max-width: 60vh;
+        display: block;
+        margin: auto;
     }
     button { 
         cursor: pointer;
@@ -14,10 +17,24 @@ export const GlobalStyle = createGlobalStyle`
         color: ${({ theme }: { theme: any }) => theme.textColor};
         background: none;
         font-size: 16px;
-        transition: all .25s;
+        transition: all 0.25s ease-in-out;
     }
     input {
-        transition: all 0.25s linear;
+        transition: all 0.25s ease-in-out;
         color: ${({ theme }: { theme: any }) => theme.textColor};
+    } 
+
+    @media screen and (max-width: 769px) {
+        body {
+            max-width: 100vh;
+        }
     }
+
+    @media screen and (min-width: 900px) {
+        body {
+            max-width: 150vh;
+        }
+    }
+
+   
 `;
