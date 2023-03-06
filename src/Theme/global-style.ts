@@ -45,5 +45,11 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
+    @media screen and (max-width: 950px) {
+        body {
+            max-width: 150vh;
+        }
+    }
+
    
 `;

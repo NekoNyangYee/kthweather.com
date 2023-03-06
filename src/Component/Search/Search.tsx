@@ -16,6 +16,9 @@ const TextField = styled.input`
     padding: 7px;
     border: none;
     border-radius: 6px;
+    @media screen and (max-width: 510px) {
+        width: 25vh;
+    }
 `;
 
 
