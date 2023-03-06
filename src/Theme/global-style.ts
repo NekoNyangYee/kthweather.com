@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+    *{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
     body {
         background: ${({ theme }: { theme: any }) => theme.bgColor};
         transition: all 0.25s ease-in-out;

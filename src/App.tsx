@@ -24,7 +24,9 @@ function App(): JSX.Element {
           onInputChange={onInputChange}
           onOptionSelect={onOptionSelect}
           onSubmit={onSubmit}
-          toggleTheme={toggleTheme} />
+          toggleTheme={toggleTheme}
+          theme={theme}
+        />
         {forecast ? <Forecast data={forecast} /> : ('원하는 지역의 현재 날씨를 알아보세요')}
       </ThemeProvider>
     </>

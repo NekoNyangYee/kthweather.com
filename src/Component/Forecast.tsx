@@ -44,7 +44,7 @@ const PresentWeather = styled.div`
 
 const NowWeatherIcon = styled.img`
     position: relative;
-    bottom: 50px;
+    bottom: 80px;
     float: right;
     width: 120px;
 `;
@@ -71,10 +71,20 @@ const SunTime = styled.h1`
 
 const WindIcon = styled.img`
     width: 52px;
+    margin: 10px;
 `;
 
 const BoxTitle = styled.p`
     margin-top: 0;
+`;
+
+const WeatherTime = styled.p`
+    margin-top: 0;
+    font-weight: bold;
+`;
+
+const FeelLike = styled.img`
+    width: 35px;
 `;
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
@@ -124,18 +134,17 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <Degree temp={Math.round(today.main.temp)} />
                 </NowWeather>
                 <WeatherCountry>
-                    <span>{data.name}, ({data.country})</span>
+                    <p>{data.name}, ({data.country})</p>
                 </WeatherCountry>
                 <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
-                <p>{today.weather[0].description}</p>
-                <p>{today.weather[0].main}</p>
-                <span>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></span>
+                <p>{today.weather[0].description} ({today.weather[0].main})</p>
+                <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
                 <p>{getDay()}, {NowDays()}(KST 기준)</p>
             </PresentWeather>
             <MoreWeather>
                 {data.list.map((itm: any, i: any) => (
                     <WeatherList key={i}>
-                        <p>{i === 0 ? '지금' : `${new Date(itm.dt * 1000).getHours()}시`}</p>
+                        <WeatherTime>{i === 0 ? '지금' : `${new Date(itm.dt * 1000).getHours()}시`}</WeatherTime>
                         <ListIcon src={`http://openweathermap.org/img/wn/${itm.weather[0].icon}@2x.png`} />
                         <Degree temp={Math.round(itm.main.temp)} />
                     </WeatherList>
@@ -161,7 +170,9 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <WindIcon src="./img/wind.svg" />
                 </SunInfo>
                 <SunInfo>
-                    <p>{Math.round(today.main.feels_like)}</p>
+                    <BoxTitle>체감온도</BoxTitle>
+                    <SunTime>{Math.round(today.main.feels_like)}°</SunTime>
+                    <FeelLike src="./img/feellike.svg" />
                 </SunInfo>
             </BoxContainer>
             <p>{`${today.main.humidity}`} %</p>

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { optionType } from "../../types/Type";
 import styled from "styled-components";
 
@@ -9,12 +9,15 @@ const SearchArea = styled.div`
 `;
 
 const TextField = styled.input`
-    width: 25vh;
+    z-index: 25;
+    width: 40vh;
     background: ${({ theme }: { theme: any }) => theme.textFieldColor};
-    height: 28px;
+    height: auto;
+    padding: 7px;
     border: none;
     border-radius: 6px;
 `;
+
 
 const QueryList = styled.ul`
       position: relative;
@@ -29,6 +32,17 @@ const QueryList = styled.ul`
       background: ${({ theme }: { theme: any }) => theme.boxColor};
 `;
 
+const SearchBtn = styled.button`
+    position: relative;
+    top: 6px;
+    margin-left: 8px;
+`;
+
+const SearchIcon = styled.img`
+    position: relative;
+    width: 24px;
+`
+
 const CountryList = styled.li`
     display: block;
     margin: auto;
@@ -42,14 +56,16 @@ type Props = {
     onOptionSelect: (option: optionType) => void
     onSubmit: () => void
     toggleTheme: () => void
+    theme: string
 }
 
-export const Search = ({ term, options, onInputChange, onOptionSelect, onSubmit, toggleTheme }: Props): JSX.Element => {
+export const Search = ({ term, options, theme, onInputChange, onOptionSelect, onSubmit, toggleTheme }: Props): JSX.Element => {
+
     return (
         <>
             <SearchArea>
-                <TextField type='search' id="input" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
-                <button onClick={onSubmit}>검색</button>
+                <TextField type='search' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
+                <SearchBtn onClick={onSubmit}>{theme === 'light' ? <SearchIcon src="./img/search_black.svg" /> : <SearchIcon src="./img/search.svg" />}</SearchBtn>
                 <button onClick={toggleTheme}>다크모드</button>
                 <QueryList>
                     {options.map((option: optionType, index: number) =>
