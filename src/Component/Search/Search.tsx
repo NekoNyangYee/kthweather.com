@@ -12,10 +12,10 @@ const TextField = styled.input`
     z-index: 25;
     width: 40vh;
     background: ${({ theme }: { theme: any }) => theme.textFieldColor};
-    height: auto;
+    height: 38px;
     padding: 7px;
     border: none;
-    border-radius: 6px;
+    border-radius: 9px;
     @media screen and (max-width: 510px) {
         width: 25vh;
     }
