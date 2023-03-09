@@ -31,9 +31,10 @@ const ListIcon = styled.img`
     }
 `;
 
-const WeatherCountry = styled.div`
+const WeatherCountry = styled.p`
     font-size: 29px;
     font-weight: bold;
+    margin-top: 5px;
 `;
 
 const PresentWeather = styled.div`
@@ -52,7 +53,7 @@ const NowWeatherIcon = styled.img`
 const SunInfo = styled.div`
     width: 50%;
     height: auto;
-    margin: 15px;
+    margin: 10px;
     padding: 15px;
     background: ${({ theme }: { theme: any }) => theme.boxColor};
     border-radius: 21px;
@@ -85,6 +86,10 @@ const WeatherTime = styled.p`
 
 const FeelLike = styled.img`
     width: 35px;
+`;
+
+const SunImg = styled.img`
+    width: 10vh;
 `;
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
@@ -133,9 +138,7 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 <NowWeather>
                     <Degree temp={Math.round(today.main.temp)} />
                 </NowWeather>
-                <WeatherCountry>
-                    <p>{data.name}, ({data.country})</p>
-                </WeatherCountry>
+                <WeatherCountry>{data.name}, ({data.country})</WeatherCountry>
                 <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
                 <p>{today.weather[0].description} ({today.weather[0].main})</p>
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
@@ -155,12 +158,12 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 <SunInfo>
                     <BoxTitle>일출</BoxTitle>
                     <SunTime>{getSunTime(data.sunrise)}</SunTime>
-                    <img src="./img/sunrise.svg" />
+                    <SunImg src="./img/sunrise.svg" />
                 </SunInfo>
                 <SunInfo>
                     <BoxTitle>일몰</BoxTitle>
                     <SunTime>{getSunTime(data.sunset)}</SunTime>
-                    <img src="./img/sunset.svg" />
+                    <SunImg src="./img/sunset.svg" />
                 </SunInfo>
             </BoxContainer>
             <BoxContainer>
@@ -175,7 +178,18 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <FeelLike src="./img/feellike.svg" />
                 </SunInfo>
             </BoxContainer>
-            <p>{`${today.main.humidity}`} %</p>
+            <BoxContainer>
+                <SunInfo>
+                    <BoxTitle>습도</BoxTitle>
+                    <SunTime>{today.main.humidity} %</SunTime>
+                    <WindIcon src="./img/Humidity.svg" />
+                </SunInfo>
+                <SunInfo>
+                    <BoxTitle>기압</BoxTitle>
+                    <SunTime>{today.main.pressure} hPa</SunTime>
+                    <WindIcon src="./img/pressure.svg" />
+                </SunInfo>
+            </BoxContainer>
         </>
     )
 

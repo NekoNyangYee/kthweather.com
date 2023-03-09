@@ -3,19 +3,23 @@ import { optionType } from "../../types/Type";
 import styled from "styled-components";
 
 const SearchArea = styled.div`
-    padding: 10px;
+    padding: 12px;
     height: 30px;
     text-align: center;
+    height: 38px;
 `;
 
 const TextField = styled.input`
     z-index: 25;
     width: 40vh;
-    background: ${({ theme }: { theme: any }) => theme.textFieldColor};
-    height: 38px;
-    padding: 7px;
+    background: none;
+    height: auto;
+    padding: 12px;
     border: none;
-    border-radius: 9px;
+    border-bottom: 2px solid ${({ theme }: { theme: any }) => theme.textColor};
+    &::placeholder {
+        font-size: 15px;
+      }
     @media screen and (max-width: 510px) {
         width: 25vh;
     }
