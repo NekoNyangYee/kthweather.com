@@ -41,6 +41,9 @@ const PresentWeather = styled.div`
     height: auto;
     margin: 0;
     padding: 20px;
+    @media screen and (orientation: landscape) {
+        font-size: 15px;
+     }
 `;
 
 const NowWeatherIcon = styled.img`
