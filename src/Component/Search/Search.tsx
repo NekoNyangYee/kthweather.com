@@ -23,6 +23,9 @@ const TextField = styled.input`
     @media screen and (max-width: 510px) {
         width: 25vh;
     }
+    @media screen and (orientation: landscape) {
+        width: 75vh;
+    }
 `;
 
 

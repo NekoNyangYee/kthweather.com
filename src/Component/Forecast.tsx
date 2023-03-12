@@ -68,6 +68,9 @@ const BoxContainer = styled.div`
 const SunTime = styled.h1`
     margin: 12px;
     font-size: 29px;
+    @media screen and (max-width: 480px) {
+        font-size: 25px;
+     }
 `;
 
 const WindIcon = styled.img`
@@ -90,6 +93,9 @@ const FeelLike = styled.img`
 
 const SunImg = styled.img`
     width: 10vh;
+    @media screen and (orientation: landscape) {
+        width: 20vh;
+     }
 `;
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
