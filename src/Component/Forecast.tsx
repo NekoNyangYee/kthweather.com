@@ -28,7 +28,7 @@ const WeatherList = styled.div`
 const ListIcon = styled.img`
     width: 9vh;
     @media screen and (max-width: 480px) {
-        width: 7vh;
+        width: 10vh;
     }
 `;
 
