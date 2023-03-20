@@ -26,6 +26,7 @@ const WeatherList = styled.div`
 `;
 
 const ListIcon = styled.img`
+    width: 9vh;
     @media screen and (max-width: 480px) {
         width: 7vh;
     }
@@ -69,8 +70,9 @@ const BoxContainer = styled.div`
 `;
 
 const SunTime = styled.h1`
-    margin: 12px;
-    font-size: 29px;
+    margin: 0 0 12px 0;
+    font-size: 34px;
+    text-align: left;
     @media screen and (max-width: 480px) {
         font-size: 25px;
      }
@@ -83,6 +85,8 @@ const WindIcon = styled.img`
 
 const BoxTitle = styled.p`
     margin-top: 0;
+    text-align: left;
+    font-weight: bold;
 `;
 
 const WeatherTime = styled.p`
@@ -96,9 +100,9 @@ const FeelLike = styled.img`
 
 const SunImg = styled.img`
     width: 10vh;
-    @media screen and (orientation: landscape) {
+    @media screen and (max-height: 450px) {
         width: 20vh;
-     }
+    }
 `;
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
@@ -109,26 +113,26 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
 )
 
 const getSunTime = (timestamp: number): string => {
-    const date = new Date(timestamp * 1000)
-    let hours = date.getHours().toString()
-    let minutes = date.getMinutes().toString()
+    const date = new Date(timestamp * 1000);
+    let hours = date.getHours().toString();
+    let minutes = date.getMinutes().toString();
 
-    if (hours.length <= 1) hours = `0${hours}`
-    if (minutes.length <= 1) minutes = `0${minutes}`
+    if (hours.length <= 1) hours = `0${hours}`;
+    if (minutes.length <= 1) minutes = `0${minutes}`;
 
-    return `${hours}:${minutes}`
+    return `${hours}:${minutes}`;
 }
 
 const NowDays = () => {
     const date = new Date();
-    let hours = date.getHours().toString()
-    let minutes = date.getMinutes().toString()
+    let hours = date.getHours().toString();
+    let minutes = date.getMinutes().toString();
 
-    if (hours.length <= 1) hours = `0${hours}`
-    if (minutes.length <= 1) minutes = `0${minutes}`
+    if (hours.length <= 1) hours = `0${hours}`;
+    if (minutes.length <= 1) minutes = `0${minutes}`;
 
 
-    return `${hours}:${minutes}`
+    return `${hours}:${minutes}`;
 }
 
 const getDay = () => {
@@ -137,6 +141,12 @@ const getDay = () => {
     const returnDay = day === '0' ? '일요일' : day === '1' ? '월요일' : day === '2' ? '화요일' : day === '3' ? '수요일' : day === '4' ? '목요일' : day === '5' ? '금요일' : '토요일'
 
     return returnDay
+}
+
+const feelLike = (e: any) => {
+    if (Math.round(e.list[0].main.feels_like) <= 10) {
+        return <p>ㅎㅇ</p>
+    }
 }
 
 export const Forecast = ({ data }: any): JSX.Element => {
@@ -153,6 +163,7 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
                 <p>{getDay()}, {NowDays()}(KST 기준)</p>
             </PresentWeather>
+            <p>시간별 일기예보</p>
             <MoreWeather>
                 {data.list.map((itm: any, i: any) => (
                     <WeatherList key={i}>

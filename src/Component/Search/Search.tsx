@@ -16,6 +16,7 @@ const TextField = styled.input`
     height: auto;
     padding: 12px;
     border: none;
+    -webkit-border-radius: 0;
     border-bottom: 2px solid ${({ theme }: { theme: any }) => theme.textColor};
     &::placeholder {
         font-size: 15px;
@@ -27,7 +28,6 @@ const TextField = styled.input`
         width: 75vh;
     }
 `;
-
 
 const QueryList = styled.ul`
       position: relative;
@@ -51,7 +51,7 @@ const SearchBtn = styled.button`
 const SearchIcon = styled.img`
     position: relative;
     width: 24px;
-`
+`;
 
 const CountryList = styled.li`
     display: block;
@@ -74,9 +74,9 @@ export const Search = ({ term, options, theme, onInputChange, onOptionSelect, on
     return (
         <>
             <SearchArea>
-                <TextField type='search' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
+                <TextField type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
                 <SearchBtn onClick={onSubmit}>{theme === 'light' ? <SearchIcon src="./img/search_black.svg" /> : <SearchIcon src="./img/search.svg" />}</SearchBtn>
-                <button onClick={toggleTheme}>다크모드</button>
+                <button onClick={toggleTheme} className="check">다크모드</button>
                 <QueryList>
                     {options.map((option: optionType, index: number) =>
                         <CountryList key={option.name + '-' + index}>

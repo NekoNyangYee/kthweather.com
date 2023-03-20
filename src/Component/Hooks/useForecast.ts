@@ -1,5 +1,4 @@
-import { useState, useEffect, ChangeEvent, useCallback, useLayoutEffect } from "react"
-import { lightTheme } from "../../Theme/Theme";
+import { useState, useEffect, ChangeEvent, useCallback } from "react"
 import { optionType, forecastType } from "../../types/Type";
 
 export const useForecast = () => {
@@ -7,6 +6,7 @@ export const useForecast = () => {
     const [options, setOptions] = useState<[]>([]);
     const [city, setCity] = useState<optionType | null>(null);
     const [forecast, setForecast] = useState<forecastType | null>(null);
+    const [theme, setTheme] = useState<string>('light');
 
     const getSearchOptions = (value: string) => {
         fetch(
@@ -55,7 +55,7 @@ export const useForecast = () => {
         }
     }, [city])
 
-    const [theme, setTheme] = useState<string>('light');
+
     const toggleTheme = useCallback(() => {
         const updatedTheme = theme === "light" ? "dark" : "light";
         setTheme(updatedTheme);
