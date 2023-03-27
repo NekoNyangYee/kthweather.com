@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { optionType } from "../../types/Type";
 import styled from "styled-components";
 
@@ -70,11 +70,16 @@ type Props = {
 }
 
 export const Search = ({ term, options, theme, onInputChange, onOptionSelect, onSubmit, toggleTheme }: Props): JSX.Element => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        inputRef.current && inputRef.current.focus()
+    });
 
     return (
         <>
             <SearchArea>
-                <TextField type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
+                <TextField ref={inputRef} type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
                 <SearchBtn onClick={onSubmit}>{theme === 'light' ? <SearchIcon src="./img/search_black.svg" /> : <SearchIcon src="./img/search.svg" />}</SearchBtn>
                 <button onClick={toggleTheme} className="check">다크모드</button>
                 <QueryList>
