@@ -130,13 +130,16 @@ const NowDays = () => {
     const date = new Date();
     let meridiem: string = '오전';
     let hours: number = date.getHours();
-    let minutes: number = date.getMinutes();
+    let minutes: number | string = date.getMinutes();
 
     if (hours > 12) {
         meridiem = '오후';
         hours = hours - 12
     }
 
+    if (minutes < 9) {
+        minutes = `0${minutes}`
+    }
     return `${meridiem} ${hours}:${minutes}`;
 }
 
