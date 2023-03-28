@@ -114,25 +114,30 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
 
 const getSunTime = (timestamp: number): string => {
     const date = new Date(timestamp * 1000);
-    let hours = date.getHours().toString();
-    let minutes = date.getMinutes().toString();
+    let meridiem: string = '오전';
+    let hours: number = date.getHours();
+    let minutes: number = date.getMinutes();
 
-    if (hours.length <= 1) hours = `0${hours}`;
-    if (minutes.length <= 1) minutes = `0${minutes}`;
+    if (hours > 12) {
+        meridiem = '오후';
+        hours = hours - 12
+    }
 
-    return `${hours}:${minutes}`;
+    return `${meridiem} ${hours}:${minutes}`;
 }
 
 const NowDays = () => {
     const date = new Date();
-    let hours = date.getHours().toString();
-    let minutes = date.getMinutes().toString();
+    let meridiem: string = '오전';
+    let hours: number = date.getHours();
+    let minutes: number = date.getMinutes();
 
-    if (hours.length <= 1) hours = `0${hours}`;
-    if (minutes.length <= 1) minutes = `0${minutes}`;
+    if (hours > 12) {
+        meridiem = '오후';
+        hours = hours - 12
+    }
 
-
-    return `${hours}:${minutes}`;
+    return `${meridiem} ${hours}:${minutes}`;
 }
 
 const getDay = () => {
@@ -161,7 +166,7 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
                 <p>{today.weather[0].description} ({today.weather[0].main})</p>
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
-                <p>{getDay()}, {NowDays()}(KST 기준)</p>
+                <p>{getDay()}, {NowDays()} (KST 기준)</p>
             </PresentWeather>
             <p>시간별 일기예보</p>
             <MoreWeather>
@@ -210,6 +215,7 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <WindIcon src="./img/pressure.svg" />
                 </SunInfo>
             </BoxContainer>
+
         </>
     )
 

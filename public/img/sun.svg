@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="5.64706" fill="#3D3D3D"/>
+<rect x="11.2941" width="1.41176" height="4.94118" rx="0.705882" fill="#3D3D3D"/>
+<rect x="2.82353" y="3.8218" width="1.41176" height="4.94118" rx="0.705882" transform="rotate(-45 2.82353 3.8218)" fill="#3D3D3D"/>
+<rect x="20.4351" y="2.82353" width="1.41176" height="4.94118" rx="0.705882" transform="rotate(45 20.4351 2.82353)" fill="#3D3D3D"/>
+<rect x="6.31747" y="16.9412" width="1.41176" height="4.94118" rx="0.705882" transform="rotate(45 6.31747 16.9412)" fill="#3D3D3D"/>
+<rect x="16.9412" y="17.9394" width="1.41176" height="4.94118" rx="0.705882" transform="rotate(-45 16.9412 17.9394)" fill="#3D3D3D"/>
+<rect x="11.2941" y="19.0588" width="1.41176" height="4.94118" rx="0.705882" fill="#3D3D3D"/>
+<rect y="12.7059" width="1.41176" height="4.94118" rx="0.705882" transform="rotate(-90 0 12.7059)" fill="#3D3D3D"/>
+<rect x="19.0588" y="12.7059" width="1.41176" height="4.94118" rx="0.705882" transform="rotate(-90 19.0588 12.7059)" fill="#3D3D3D"/>
+</svg>

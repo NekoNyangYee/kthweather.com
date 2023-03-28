@@ -59,17 +59,16 @@ const CountryList = styled.li`
     padding: 9px;
 `;
 
-type Props = {
+interface Props {
     term: string
     options: []
     onInputChange: (e: ChangeEvent<HTMLInputElement>) => void
     onOptionSelect: (option: optionType) => void
     onSubmit: () => void
-    toggleTheme: () => void
     theme: string
 }
 
-export const Search = ({ term, options, theme, onInputChange, onOptionSelect, onSubmit, toggleTheme }: Props): JSX.Element => {
+export const Search = ({ term, options, theme, onInputChange, onOptionSelect, onSubmit }: Props): JSX.Element => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -81,7 +80,6 @@ export const Search = ({ term, options, theme, onInputChange, onOptionSelect, on
             <SearchArea>
                 <TextField ref={inputRef} type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
                 <SearchBtn onClick={onSubmit}>{theme === 'light' ? <SearchIcon src="./img/search_black.svg" /> : <SearchIcon src="./img/search.svg" />}</SearchBtn>
-                <button onClick={toggleTheme} className="check">다크모드</button>
                 <QueryList>
                     {options.map((option: optionType, index: number) =>
                         <CountryList key={option.name + '-' + index}>

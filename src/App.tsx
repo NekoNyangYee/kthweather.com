@@ -1,10 +1,11 @@
 import { useForecast } from "./Component/Hooks/useForecast";
 import { Search } from "./Component/Search/Search";
 import { Forecast } from "./Component/Forecast";
-import { useCallback, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./Theme/Theme";
 import { GlobalStyle } from "./Theme/global-style";
+import { Button } from "./Component/ToggleButton/Button";
 
 const MainInfo = styled.div`
   position: relative;
@@ -33,7 +34,6 @@ function App(): JSX.Element {
           onInputChange={onInputChange}
           onOptionSelect={onOptionSelect}
           onSubmit={onSubmit}
-          toggleTheme={toggleTheme}
           theme={theme}
         />
         {forecast ? <Forecast data={forecast} /> : (
@@ -42,6 +42,10 @@ function App(): JSX.Element {
             <span>버전 1.0.0</span>
           </MainInfo>
         )}
+        <Button
+          toggleTheme={toggleTheme}
+          theme={theme}
+        />
       </ThemeProvider>
     </>
   );
