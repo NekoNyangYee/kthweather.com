@@ -1,18 +1,20 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { transform } from "typescript";
 
 const NowWeather = styled.h1`
     font-size: 52px;
     margin: 0;
 `;
 
-const MoreWeather = styled.div`
-    width: auto;
-    height: auto;
-    display: flex;
-    overflow-x: scroll;
-    background: ${({ theme }: { theme: any }) => theme.boxColor};
+const TimeWeather = styled.div`
+    background: ${({ theme }: { theme: any }) => theme.boxColor}; 
     border-radius: 21px;
     margin: 12px;
+`;
+
+const MoreWeatherTitle = styled.div`
+    padding: 2vh;
 `;
 
 const WeatherList = styled.div`
@@ -20,15 +22,12 @@ const WeatherList = styled.div`
     height: auto;
     margin: 10px;
     text-align: center;
-    @media screen and (max-width: 480px) {
-       width: 7vh;
-    }
 `;
 
 const ListIcon = styled.img`
     width: 9vh;
-    @media screen and (orientation: landscape) {
-        width: 14vh;
+    @media screen and (max-width: 500px) {
+        width: 8vh;
     }
 `;
 
@@ -104,6 +103,13 @@ const SunImg = styled.img`
         width: 20vh;
     }
 `;
+const MoreWeather = styled.div`
+    width: auto;
+    height: auto;
+    display: flex;
+    overflow-x: scroll;
+    transform: translateX(move);
+`;
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
     <>
@@ -137,9 +143,10 @@ const NowDays = () => {
         hours = hours - 12
     }
 
-    if (minutes < 9) {
+    if (minutes < 10) {
         minutes = `0${minutes}`
     }
+
     return `${meridiem} ${hours}:${minutes}`;
 }
 
@@ -151,14 +158,23 @@ const getDay = () => {
     return returnDay
 }
 
-const feelLike = (e: any) => {
-    if (Math.round(e.list[0].main.feels_like) <= 10) {
-        return <p>ㅎㅇ</p>
-    }
-}
-
 export const Forecast = ({ data }: any): JSX.Element => {
+
+    const [move, setMove] = useState<number>(0);
+
+    const leftMove = () => {
+        if (move === 0) {
+            return;
+        }
+        setMove((prev) => prev + 10)
+    }
+
+    const rightMove = () => {
+        setMove((prev) => prev + 10)
+    }
+
     const today = data.list[0]
+
     return (
         <>
             <PresentWeather>
@@ -171,17 +187,20 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
                 <p>{getDay()}, {NowDays()} (KST 기준)</p>
             </PresentWeather>
-            <p>시간별 일기예보</p>
-            <MoreWeather>
-                {data.list.map((itm: any, i: any) => (
-                    <WeatherList key={i}>
-                        <WeatherTime>{i === 0 ? '지금' : `${new Date(itm.dt * 1000).getHours()}시`}</WeatherTime>
-                        <ListIcon src={`http://openweathermap.org/img/wn/${itm.weather[0].icon}@2x.png`} />
-                        <Degree temp={Math.round(itm.main.temp)} />
-                    </WeatherList>
-                ))
-                }
-            </MoreWeather>
+            <p>{data.name}의 현재 날씨는 {today.weather[0].main}입니다.</p>
+            <TimeWeather>
+                <MoreWeatherTitle>시간별 일기예보</MoreWeatherTitle>
+                <MoreWeather>
+                    {data.list.map((itm: any, i: any) => (
+                        <WeatherList key={i}>
+                            <WeatherTime>{i === 0 ? '지금' : `${new Date(itm.dt * 1000).getHours()}시`}</WeatherTime>
+                            <ListIcon src={`http://openweathermap.org/img/wn/${itm.weather[0].icon}@2x.png`} />
+                            <Degree temp={Math.round(itm.main.temp)} />
+                        </WeatherList>
+                    ))
+                    }
+                </MoreWeather>
+            </TimeWeather>
             <BoxContainer>
                 <SunInfo>
                     <BoxTitle>일출</BoxTitle>

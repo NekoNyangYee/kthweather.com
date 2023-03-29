@@ -33,7 +33,7 @@ export const useForecast = () => {
             .then(data => {
                 const forecastData = {
                     ...data.city,
-                    list: data.list.slice(0, 16)
+                    list: data.list.slice(0, 20)
                 }
                 setForecast(forecastData)
             })

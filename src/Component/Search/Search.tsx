@@ -69,16 +69,11 @@ interface Props {
 }
 
 export const Search = ({ term, options, theme, onInputChange, onOptionSelect, onSubmit }: Props): JSX.Element => {
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        inputRef.current && inputRef.current.focus()
-    });
 
     return (
         <>
             <SearchArea>
-                <TextField ref={inputRef} type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
+                <TextField type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
                 <SearchBtn onClick={onSubmit}>{theme === 'light' ? <SearchIcon src="./img/search_black.svg" /> : <SearchIcon src="./img/search.svg" />}</SearchBtn>
                 <QueryList>
                     {options.map((option: optionType, index: number) =>
