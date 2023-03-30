@@ -14,7 +14,9 @@ const TimeWeather = styled.div`
 `;
 
 const MoreWeatherTitle = styled.div`
+font-weight: bold;
     padding: 2vh;
+    color: #8A8A8A;
 `;
 
 const WeatherList = styled.div`
@@ -22,12 +24,18 @@ const WeatherList = styled.div`
     height: auto;
     margin: 10px;
     text-align: center;
+    @media screen and (orientation: landscape) {
+        width: 18vh;
+    }
 `;
 
 const ListIcon = styled.img`
     width: 9vh;
     @media screen and (max-width: 500px) {
         width: 8vh;
+    }
+    @media screen and (orientation: landscape) {
+        width: 15vh;
     }
 `;
 
@@ -39,8 +47,7 @@ const WeatherCountry = styled.p`
 
 const PresentWeather = styled.div`
     height: auto;
-    margin: 0;
-    padding: 20px;
+    margin: 12px;
     @media screen and (orientation: landscape) {
         font-size: 15px;
      }
@@ -86,6 +93,7 @@ const BoxTitle = styled.p`
     margin-top: 0;
     text-align: left;
     font-weight: bold;
+    color: #8A8A8A;
 `;
 
 const WeatherTime = styled.p`
@@ -103,78 +111,89 @@ const SunImg = styled.img`
         width: 20vh;
     }
 `;
+
 const MoreWeather = styled.div`
     width: auto;
     height: auto;
     display: flex;
     overflow-x: scroll;
-    transform: translateX(move);
 `;
 
-const Degree = ({ temp }: { temp: number }): JSX.Element => (
-    <>
-        {temp}
-        <sup>°</sup>
-    </>
-)
-
-const getSunTime = (timestamp: number): string => {
-    const date = new Date(timestamp * 1000);
-    let meridiem: string = '오전';
-    let hours: number = date.getHours();
-    let minutes: number = date.getMinutes();
-
-    if (hours > 12) {
-        meridiem = '오후';
-        hours = hours - 12
+const InfoContainer = styled.div`
+    padding: 12px;
+    height: auto;
+    margin: 12px 12px 10vh 12px;
+    border-radius: 12px;
+    background: ${({ theme }: { theme: any }) => theme.boxColor};
+    @media screen and (max-width: 450px) {
+        font-size: 13px;
     }
+`;
 
-    return `${meridiem} ${hours}:${minutes}`;
-}
+const InfoLeft = styled.div`
+    float: right;
+`;
 
-const NowDays = () => {
-    const date = new Date();
-    let meridiem: string = '오전';
-    let hours: number = date.getHours();
-    let minutes: number | string = date.getMinutes();
+const InfoRight = styled.div`
+    color: #8A8A8A;
+`;
 
-    if (hours > 12) {
-        meridiem = '오후';
-        hours = hours - 12
-    }
-
-    if (minutes < 10) {
-        minutes = `0${minutes}`
-    }
-
-    return `${meridiem} ${hours}:${minutes}`;
-}
-
-const getDay = () => {
-    const date = new Date();
-    const day: number | string = date.getDay().toString();
-    const returnDay = day === '0' ? '일요일' : day === '1' ? '월요일' : day === '2' ? '화요일' : day === '3' ? '수요일' : day === '4' ? '목요일' : day === '5' ? '금요일' : '토요일'
-
-    return returnDay
-}
+const LinkWeb = styled.a`
+    text-decoration: none;
+    color: #8A8A8A;
+`;
 
 export const Forecast = ({ data }: any): JSX.Element => {
 
-    const [move, setMove] = useState<number>(0);
-
-    const leftMove = () => {
-        if (move === 0) {
-            return;
-        }
-        setMove((prev) => prev + 10)
-    }
-
-    const rightMove = () => {
-        setMove((prev) => prev + 10)
-    }
-
     const today = data.list[0]
+    const Degree = ({ temp }: { temp: number }): JSX.Element => (
+        <>
+            {temp}
+            <sup>°</sup>
+        </>
+    )
 
+    const getSunTime = (timestamp: number): string => {
+        const date = new Date(timestamp * 1000);
+        let meridiem: string = '오전';
+        let hours: number = date.getHours();
+        let minutes: number = date.getMinutes();
+
+        if (hours > 12) {
+            meridiem = '오후';
+            hours = hours - 12
+        }
+
+        return `${meridiem} ${hours}:${minutes}`;
+    }
+
+    const NowDays = () => {
+        const date = new Date();
+        let meridiem: string = '오전';
+        let hours: number = date.getHours();
+        let minutes: number | string = date.getMinutes();
+        let nowMonth: number = date.getMonth();
+        let nowDate: number = date.getDate();
+
+        if (hours > 12) {
+            meridiem = '오후';
+            hours -= 12
+        }
+
+        if (minutes < 10) {
+            minutes = `0${minutes}`
+        }
+
+        return `${nowMonth + 1}월 ${nowDate}일 ${meridiem} ${hours}:${minutes}`;
+    }
+
+    const getDay = () => {
+        const date = new Date();
+        const day: number | string = date.getDay().toString();
+        const returnDay = day === '0' ? '일요일' : day === '1' ? '월요일' : day === '2' ? '화요일' : day === '3' ? '수요일' : day === '4' ? '목요일' : day === '5' ? '금요일' : '토요일'
+
+        return returnDay
+    }
     return (
         <>
             <PresentWeather>
@@ -185,7 +204,6 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
                 <p>{today.weather[0].description} ({today.weather[0].main})</p>
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
-                <p>{getDay()}, {NowDays()} (KST 기준)</p>
             </PresentWeather>
             <p>{data.name}의 현재 날씨는 {today.weather[0].main}입니다.</p>
             <TimeWeather>
@@ -237,6 +255,14 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <WindIcon src="./img/pressure.svg" />
                 </SunInfo>
             </BoxContainer>
+            <InfoContainer>
+                <InfoLeft>
+                    <LinkWeb href="https://openweathermap.org/">제공: OpenWeather</LinkWeb>
+                </InfoLeft>
+                <InfoRight>
+                    {getDay()}, {NowDays()} (KST 기준)
+                </InfoRight>
+            </InfoContainer>
 
         </>
     )

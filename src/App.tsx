@@ -38,8 +38,8 @@ function App(): JSX.Element {
         />
         {forecast ? <Forecast data={forecast} /> : (
           <MainInfo>
+            <img src="./img/Icon.png" />
             <p>원하는 지역의 날씨를 검색하세요!</p>
-            <span>버전 1.0.0</span>
           </MainInfo>
         )}
         <Button

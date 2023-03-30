@@ -16,13 +16,16 @@ const TextField = styled.input`
     height: auto;
     padding: 12px;
     border: none;
+    font-size: 15px;
     -webkit-border-radius: 0;
+    transition: all 0.25s ease-in-out;
     border-bottom: 2px solid ${({ theme }: { theme: any }) => theme.textColor};
     &::placeholder {
         font-size: 15px;
       }
     @media screen and (max-width: 510px) {
-        width: 25vh;
+        width: 34vh;
+        font-size: 15px;
     }
     @media screen and (orientation: landscape) {
         width: 75vh;
@@ -34,11 +37,13 @@ const QueryList = styled.ul`
       z-index: 99;
       max-width: 50vh;
       padding: 0;
+      height: auto;
       margin-left: auto;
       margin-right: auto;
       list-style: none;
       text-align: center;
       border-radius: 12px;
+      overflow: hidden;
       background: ${({ theme }: { theme: any }) => theme.boxColor};
 `;
 
@@ -73,7 +78,7 @@ export const Search = ({ term, options, theme, onInputChange, onOptionSelect, on
     return (
         <>
             <SearchArea>
-                <TextField type='stext' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
+                <TextField type='text' id="target_btn" value={term} placeholder='클릭하여 지역 검색' onChange={onInputChange} />
                 <SearchBtn onClick={onSubmit}>{theme === 'light' ? <SearchIcon src="./img/search_black.svg" /> : <SearchIcon src="./img/search.svg" />}</SearchBtn>
                 <QueryList>
                     {options.map((option: optionType, index: number) =>
