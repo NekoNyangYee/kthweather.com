@@ -2,11 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     *{
-        font-family: 'Noto Sans KR', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;      
     }
     body {
         background: ${({ theme }: { theme: any }) => theme.bgColor};
-        transition: all 0.25s ease-in-out;
         color: ${({ theme }: { theme: any }) => theme.textColor};
         max-width: 60vh;
         display: block;
@@ -20,36 +19,32 @@ export const GlobalStyle = createGlobalStyle`
         color: ${({ theme }: { theme: any }) => theme.textColor};
         background: none;
         font-size: 16px;
-        transition: all 0.25s ease-in-out;
     }
     input {
-        transition: all 0.25s ease-in-out;
         color: ${({ theme }: { theme: any }) => theme.textColor};
     } 
 
-    @media screen and (max-width: 480px) {
+    @media screen and (min-width: 480px) and (max-width: 767px) {
         body {
-            max-width: 10vh;
+            max-width: 120vh;
         }
     }
 
-    @media screen and (max-width: 769px) {
-        body {
-            max-width: 100vh;
-        }
-    }
-
-    @media screen and (min-width: 900px) {
-        body {
-            max-width: 100vh;
-        }
-    }
-
-    @media screen and (max-width: 950px) {
+    @media screen and (min-width: 768px) and (max-width: 991px) {
         body {
             max-width: 150vh;
         }
     }
 
-   
+    @media screen and (min-width: 992px) and (max-width: 1199px) {
+        body {
+            max-width: 230vh;
+        }
+    }
+
+    @media screen and (min-width: 1200px) {
+        body {
+            max-width: 100vh;
+        }
+    }
 `;

@@ -32,11 +32,8 @@ const WeatherList = styled.div`
 
 const ListIcon = styled.img`
     width: 9vh;
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 480px) {
         width: 8vh;
-    }
-    @media screen and (max-height: 850px) {
-        width: 14vh;
     }
 `;
 
@@ -44,19 +41,25 @@ const WeatherCountry = styled.p`
     font-size: 29px;
     font-weight: bold;
     margin-top: 5px;
+    margin-bottom: 0;
 `;
 
 const PresentWeather = styled.div`
+    position: sticky;
+    top: 0;
+    background: ${({ theme }: { theme: any }) => theme.bgColor};
+    width: 30vm;
     height: auto;
-    margin: 12px;
+    padding: 12px 12px 12px 12px;
     @media screen and (orientation: landscape) {
         font-size: 15px;
      }
 `;
 
 const NowWeatherIcon = styled.img`
-    position: relative;
-    bottom: 80px;
+    position: sticky;
+    top: 20px;
+    margin-top: -10vh;
     float: right;
     width: 120px;
 `;
@@ -214,15 +217,14 @@ export const Forecast = ({ data }: any): JSX.Element => {
             <PresentWeather>
                 <NowWeather>
                     <Degree temp={Math.round(today.main.temp)} />
+                    <WeatherCountry>{data.name}, ({data.country})</WeatherCountry>
                 </NowWeather>
-                <WeatherCountry>{data.name}, ({data.country})</WeatherCountry>
-                <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
-
             </PresentWeather>
+            <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
             <WeatherSubContainer>
                 <p>{today.weather[0].description} ({today.weather[0].main})</p>
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> | 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
-                <p>{data.name}의 현재 날씨는 {today.weather[0].main}입니다.</p>
+                <p>{data.name}의 현재 날씨는 {today.weather[0].description}이 되겠습니다.</p>
             </WeatherSubContainer>
             <TimeWeather>
                 <MoreWeatherTitle>시간별 일기예보</MoreWeatherTitle>
