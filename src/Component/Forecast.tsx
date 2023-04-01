@@ -1,6 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { transform } from "typescript";
 
 const NowWeather = styled.h1`
     font-size: 52px;
@@ -17,6 +15,9 @@ const MoreWeatherTitle = styled.div`
 font-weight: bold;
     padding: 2vh;
     color: #8A8A8A;
+    @media screen and (max-height: 850px) {
+        font-size: 14px;
+    }
 `;
 
 const WeatherList = styled.div`
@@ -34,8 +35,8 @@ const ListIcon = styled.img`
     @media screen and (max-width: 500px) {
         width: 8vh;
     }
-    @media screen and (orientation: landscape) {
-        width: 15vh;
+    @media screen and (max-height: 850px) {
+        width: 14vh;
     }
 `;
 
@@ -97,7 +98,7 @@ const BoxTitle = styled.p`
 `;
 
 const WeatherTime = styled.p`
-    margin-top: 0;
+    margin: 0;
     font-weight: bold;
 `;
 
@@ -132,15 +133,29 @@ const InfoContainer = styled.div`
 
 const InfoLeft = styled.div`
     float: right;
+    color: #8A8A8A;
+    @media screen and (max-height: 850px) {
+        font-size: 14px;
+    }
 `;
 
 const InfoRight = styled.div`
     color: #8A8A8A;
+    @media screen and (max-height: 850px) {
+        font-size: 14px;
+    }
 `;
 
 const LinkWeb = styled.a`
     text-decoration: none;
     color: #8A8A8A;
+`;
+
+const WeatherSubContainer = styled.div`
+    margin: 12px;
+    @media screen and (max-height: 850px) {
+        font-size: 14px;
+    }
 `;
 
 export const Forecast = ({ data }: any): JSX.Element => {
@@ -190,7 +205,7 @@ export const Forecast = ({ data }: any): JSX.Element => {
     const getDay = () => {
         const date = new Date();
         const day: number | string = date.getDay().toString();
-        const returnDay = day === '0' ? '일요일' : day === '1' ? '월요일' : day === '2' ? '화요일' : day === '3' ? '수요일' : day === '4' ? '목요일' : day === '5' ? '금요일' : '토요일'
+        const returnDay = day === '0' ? '(일)' : day === '1' ? '(월)' : day === '2' ? '(화)' : day === '3' ? '(수)' : day === '4' ? '(목)' : day === '5' ? '(금)' : '(토)'
 
         return returnDay
     }
@@ -202,10 +217,13 @@ export const Forecast = ({ data }: any): JSX.Element => {
                 </NowWeather>
                 <WeatherCountry>{data.name}, ({data.country})</WeatherCountry>
                 <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
-                <p>{today.weather[0].description} ({today.weather[0].main})</p>
-                <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
+
             </PresentWeather>
-            <p>{data.name}의 현재 날씨는 {today.weather[0].main}입니다.</p>
+            <WeatherSubContainer>
+                <p>{today.weather[0].description} ({today.weather[0].main})</p>
+                <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> | 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
+                <p>{data.name}의 현재 날씨는 {today.weather[0].main}입니다.</p>
+            </WeatherSubContainer>
             <TimeWeather>
                 <MoreWeatherTitle>시간별 일기예보</MoreWeatherTitle>
                 <MoreWeather>
@@ -257,10 +275,10 @@ export const Forecast = ({ data }: any): JSX.Element => {
             </BoxContainer>
             <InfoContainer>
                 <InfoLeft>
-                    <LinkWeb href="https://openweathermap.org/">제공: OpenWeather</LinkWeb>
+                    {NowDays()} | {getDay()} 업데이트
                 </InfoLeft>
                 <InfoRight>
-                    {getDay()}, {NowDays()} (KST 기준)
+                    <LinkWeb href="https://openweathermap.org/">제공: OpenWeather</LinkWeb>
                 </InfoRight>
             </InfoContainer>
 

@@ -27,13 +27,14 @@ export const useForecast = () => {
     const getForecast = (city: optionType) => {
         fetch(
             `https://api.openweathermap.org/data/2.5/forecast?lat=${city
-                .lat}&lon=${city.lon}&units=metric&appid=4c6111798f894eb0be9387495f2e86e6`
+                .lat}&lon=${city.lon}&units=metric&lang=kr&appid=4c6111798f894eb0be9387495f2e86e6`
         )
             .then(res => res.json())
             .then(data => {
                 const forecastData = {
                     ...data.city,
-                    list: data.list.slice(0, 20)
+                    list: data.list.slice(0, 20),
+                    days: data.list.slice(0, 11)
                 }
                 setForecast(forecastData)
             })
