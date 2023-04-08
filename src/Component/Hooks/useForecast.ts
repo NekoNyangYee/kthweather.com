@@ -34,7 +34,6 @@ export const useForecast = () => {
                 const forecastData = {
                     ...data.city,
                     list: data.list.slice(0, 20),
-                    days: data.list.slice(0, 11)
                 }
                 setForecast(forecastData)
             })
@@ -62,7 +61,6 @@ export const useForecast = () => {
         setTheme(updatedTheme);
         localStorage.setItem("theme", updatedTheme);
     }, [theme])
-
 
     return {
         term, theme, setTheme, options, forecast, onInputChange, onOptionSelect, onSubmit, toggleTheme

@@ -11,14 +11,15 @@ const SearchArea = styled.div`
 
 const TextField = styled.input`
     z-index: 25;
-    width: 40vh;
+    position: sticky;
+    top: 0;
+    width: 30vh;
     background: ${({ theme }: { theme: any }) => theme.boxColor};
     height: auto;
     padding: 10px;
     border: none;
     font-size: 15px;
     -webkit-border-radius: 0;
-    transition: all 0.25s ease-in-out;
     border-radius:  16px 0 0 16px;
     &::placeholder {
         font-size: 15px;
@@ -29,9 +30,6 @@ const TextField = styled.input`
     @media screen and (max-width: 510px) {
         width: 34vh;
         font-size: 16px;
-    }
-    @media screen and (orientation: landscape) {
-        width: 75vh;
     }
 `;
 

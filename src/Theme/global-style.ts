@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         background: ${({ theme }: { theme: any }) => theme.bgColor};
         color: ${({ theme }: { theme: any }) => theme.textColor};
-        max-width: 60vh;
+        max-width: 60%;
         display: block;
         margin: auto;
     }
@@ -24,27 +24,21 @@ export const GlobalStyle = createGlobalStyle`
         color: ${({ theme }: { theme: any }) => theme.textColor};
     } 
 
-    @media screen and (min-width: 480px) and (max-width: 767px) {
+    @media screen and (max-width: 480px) {
         body {
-            max-width: 120vh;
+            max-width: 120%;
         }
     }
 
-    @media screen and (min-width: 768px) and (max-width: 991px) {
+    @media screen and (min-width: 851px) {
         body {
-            max-width: 150vh;
-        }
-    }
-
-    @media screen and (min-width: 992px) and (max-width: 1199px) {
-        body {
-            max-width: 230vh;
+            max-width: 80%;
         }
     }
 
     @media screen and (min-width: 1200px) {
         body {
-            max-width: 100vh;
+            max-width: 50%;
         }
     }
 `;

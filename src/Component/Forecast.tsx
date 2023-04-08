@@ -35,6 +35,12 @@ const ListIcon = styled.img`
     @media screen and (max-width: 480px) {
         width: 8vh;
     }
+    @media screen and (max-width: 850px) {
+        width: 7vh;
+    }
+    @media screen and (max-width: 1250px) {
+        width: 7vh;
+    }
 `;
 
 const WeatherCountry = styled.p`
@@ -45,11 +51,10 @@ const WeatherCountry = styled.p`
 `;
 
 const PresentWeather = styled.div`
-    position: sticky;
-    top: 0;
-    background: ${({ theme }: { theme: any }) => theme.bgColor};
     width: 30vm;
     height: auto;
+    display: flex;
+    justify-content: space-between;
     padding: 12px 12px 12px 12px;
     @media screen and (orientation: landscape) {
         font-size: 15px;
@@ -57,9 +62,6 @@ const PresentWeather = styled.div`
 `;
 
 const NowWeatherIcon = styled.img`
-    position: sticky;
-    top: 20px;
-    margin-top: -10vh;
     float: right;
     width: 120px;
 `;
@@ -72,7 +74,6 @@ const SunInfo = styled.div`
     background: ${({ theme }: { theme: any }) => theme.boxColor};
     border-radius: 21px;
     overflow: hidden;
-    text-align: center;
 `;
 
 const BoxContainer = styled.div`
@@ -80,16 +81,16 @@ const BoxContainer = styled.div`
 `;
 
 const SunTime = styled.h1`
-    margin: 0 0 12px 0;
+    margin: 0;
     font-size: 34px;
     text-align: left;
     @media screen and (max-width: 480px) {
-        font-size: 25px;
+        font-size: 27px;
      }
 `;
 
 const WindIcon = styled.img`
-    width: 52px;
+    width: 42px;
     margin: 10px;
 `;
 
@@ -106,7 +107,7 @@ const WeatherTime = styled.p`
 `;
 
 const FeelLike = styled.img`
-    width: 35px;
+    width: 28px;
 `;
 
 const SunImg = styled.img`
@@ -161,6 +162,27 @@ const WeatherSubContainer = styled.div`
     }
 `;
 
+const ForecastSubContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const ForecastInfo = styled.div`
+    margin: 7px 0 7px 0;
+    @media screen and (max-height: 850px) {
+        font-size: 14px;
+    }
+`;
+
+const NowForecastInfo = styled.p`
+    background: ${({ theme }: { theme: any }) => theme.boxColor};
+    font-weight: bold;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    text-align: center;
+`;
+
 export const Forecast = ({ data }: any): JSX.Element => {
 
     const today = data.list[0]
@@ -174,13 +196,14 @@ export const Forecast = ({ data }: any): JSX.Element => {
     const getSunTime = (timestamp: number): string => {
         const date = new Date(timestamp * 1000);
         let meridiem: string = '오전';
-        let hours: number = date.getHours();
-        let minutes: number = date.getMinutes();
+        let hours: number | string = date.getHours();
+        let minutes: number | string = date.getMinutes();
 
         if (hours > 12) {
             meridiem = '오후';
             hours = hours - 12
         }
+        minutes < 10 ? minutes = `0${minutes}` : minutes = `${minutes}`
 
         return `${meridiem} ${hours}:${minutes}`;
     }
@@ -205,6 +228,28 @@ export const Forecast = ({ data }: any): JSX.Element => {
         return `${nowMonth + 1}월 ${nowDate}일 ${meridiem} ${hours}:${minutes}`;
     }
 
+    const feelLike = () => {
+        if (Math.round(today.main.feels_like) < 4) {
+            return '바깥이 춥기에 옷은 따뜻하게 입고 나가는 것이 좋아요.'
+        } else if (Math.round(today.main.feels_like) < 8) {
+            return '가을 같은 날씨이나 아직 긴 옷이나 따뜻한 옷을 입어야 할 때에요.'
+        } else if (Math.round(today.main.feels_like) < 11) {
+            return '날씨가 점차 풀리면서 바람이 불 때에요.'
+        }
+        else if (Math.round(today.main.feels_like) < 16) {
+            return '봄 같은 날씨이나 바람으로 인해 선선할 수 있어요.'
+        }
+        else if (Math.round(today.main.feels_like) < 19) {
+            return '살짝 더워졌어요. 얇은 긴팔을 추천드려요'
+        }
+        else if (Math.round(today.main.feels_like) < 22) {
+            return '많이 더워졌어요. 탈진 방지를 위해 가끔씩 수분 보충을 해주세요'
+        }
+        else if (Math.round(today.main.feels_like) < 27) {
+            return '외출 시 반팔과 선크림은 필수에요. 수분 보충도 필수로 해주세요.'
+        }
+    }
+
     const getDay = () => {
         const date = new Date();
         const day: number | string = date.getDay().toString();
@@ -219,13 +264,13 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <Degree temp={Math.round(today.main.temp)} />
                     <WeatherCountry>{data.name}, ({data.country})</WeatherCountry>
                 </NowWeather>
+                <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
             </PresentWeather>
-            <NowWeatherIcon src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`} />
             <WeatherSubContainer>
                 <p>{today.weather[0].description} ({today.weather[0].main})</p>
                 <p>최고: <Degree temp={Math.ceil(today.main.temp_max)} /> | 최저: <Degree temp={Math.floor(today.main.temp_min)} /></p>
-                <p>{data.name}의 현재 날씨는 {today.weather[0].description}이 되겠습니다.</p>
             </WeatherSubContainer>
+            <NowForecastInfo>{data.name}의 현재 날씨는 {today.weather[0].description}입니다.</NowForecastInfo>
             <TimeWeather>
                 <MoreWeatherTitle>시간별 일기예보</MoreWeatherTitle>
                 <MoreWeather>
@@ -254,13 +299,18 @@ export const Forecast = ({ data }: any): JSX.Element => {
             <BoxContainer>
                 <SunInfo>
                     <BoxTitle>풍속</BoxTitle>
-                    <SunTime>{today.wind.speed}m/s</SunTime>
-                    <WindIcon src="./img/wind.svg" />
+                    <ForecastSubContainer>
+                        <SunTime>{today.wind.speed}m/s</SunTime>
+                        <WindIcon src="./img/wind.svg" />
+                    </ForecastSubContainer>
                 </SunInfo>
                 <SunInfo>
                     <BoxTitle>체감온도</BoxTitle>
-                    <SunTime>{Math.round(today.main.feels_like)}°</SunTime>
-                    <FeelLike src="./img/feellike.svg" />
+                    <ForecastSubContainer>
+                        <SunTime>{Math.round(today.main.feels_like)}°</SunTime>
+                        <FeelLike src="./img/feellike.svg" />
+                    </ForecastSubContainer>
+                    <ForecastInfo>{feelLike()}</ForecastInfo>
                 </SunInfo>
             </BoxContainer>
             <BoxContainer>
