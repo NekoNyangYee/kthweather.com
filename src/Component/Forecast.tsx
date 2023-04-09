@@ -38,8 +38,11 @@ const ListIcon = styled.img`
     @media screen and (max-width: 850px) {
         width: 7vh;
     }
-    @media screen and (max-width: 1250px) {
-        width: 17vh;
+    @media screen and (max-height: 950px)  {
+        width: 14vh;
+    }
+    @media screen and (max-height: 950px) and (max-width: 480px) {
+        width: 8vh;
     }
 `;
 
@@ -188,6 +191,9 @@ const NowForecastInfo = styled.p`
     margin: 10px;
     border-radius: 15px;
     text-align: center;
+    @media screen and (max-height: 850px) {
+        font-size: 13px;
+    }
 `;
 
 export const Forecast = ({ data }: any): JSX.Element => {
