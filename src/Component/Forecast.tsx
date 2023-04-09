@@ -39,7 +39,7 @@ const ListIcon = styled.img`
         width: 7vh;
     }
     @media screen and (max-width: 1250px) {
-        width: 7vh;
+        width: 17vh;
     }
 `;
 
