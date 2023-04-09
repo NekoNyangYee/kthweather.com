@@ -12,8 +12,8 @@ const TimeWeather = styled.div`
 `;
 
 const MoreWeatherTitle = styled.div`
-font-weight: bold;
-    padding: 2vh;
+    font-weight: bold;
+    padding: 11px;
     color: #8A8A8A;
     @media screen and (max-height: 850px) {
         font-size: 14px;
@@ -44,7 +44,7 @@ const ListIcon = styled.img`
 `;
 
 const WeatherCountry = styled.p`
-    font-size: 29px;
+    font-size: 24px;
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 0;
@@ -62,8 +62,7 @@ const PresentWeather = styled.div`
 `;
 
 const NowWeatherIcon = styled.img`
-    float: right;
-    width: 120px;
+    width: 125px;
 `;
 
 const SunInfo = styled.div`
@@ -82,7 +81,7 @@ const BoxContainer = styled.div`
 
 const SunTime = styled.h1`
     margin: 0;
-    font-size: 34px;
+    font-size: 28px;
     text-align: left;
     @media screen and (max-width: 480px) {
         font-size: 27px;
@@ -90,8 +89,12 @@ const SunTime = styled.h1`
 `;
 
 const WindIcon = styled.img`
+    position: relative;
     width: 42px;
     margin: 10px;
+    @media screen and (max-width: 850px) {
+        top: 10%;
+    }
 `;
 
 const BoxTitle = styled.p`
@@ -112,8 +115,11 @@ const FeelLike = styled.img`
 
 const SunImg = styled.img`
     width: 10vh;
-    @media screen and (max-height: 450px) {
-        width: 20vh;
+    margin: auto;
+    padding: 12px;
+    display: block;
+    @media screen and (max-width: 850px) {
+        width: 8vh;
     }
 `;
 
@@ -169,6 +175,7 @@ const ForecastSubContainer = styled.div`
 
 const ForecastInfo = styled.div`
     margin: 7px 0 7px 0;
+    padding: 7px;
     @media screen and (max-height: 850px) {
         font-size: 14px;
     }
@@ -299,10 +306,8 @@ export const Forecast = ({ data }: any): JSX.Element => {
             <BoxContainer>
                 <SunInfo>
                     <BoxTitle>풍속</BoxTitle>
-                    <ForecastSubContainer>
-                        <SunTime>{today.wind.speed}m/s</SunTime>
-                        <WindIcon src="./img/wind.svg" />
-                    </ForecastSubContainer>
+                    <SunTime>{today.wind.speed}m/s</SunTime>
+                    <WindIcon src="./img/wind.svg" />
                 </SunInfo>
                 <SunInfo>
                     <BoxTitle>체감온도</BoxTitle>
