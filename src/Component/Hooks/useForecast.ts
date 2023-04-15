@@ -62,7 +62,12 @@ export const useForecast = () => {
         localStorage.setItem("theme", updatedTheme);
     }, [theme])
 
+    const setDarkAlert = ({ data }: { data: forecastType }) => {
+        if (data.sunset) {
+            alert('눈 보호를 위해 다크모드로 변경할까요?')
+        }
+    }
     return {
-        term, theme, setTheme, options, forecast, onInputChange, onOptionSelect, onSubmit, toggleTheme
+        term, theme, setTheme, options, forecast, onInputChange, onOptionSelect, onSubmit, toggleTheme, setDarkAlert
     }
 }

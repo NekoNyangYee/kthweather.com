@@ -17,13 +17,14 @@ const MainInfo = styled.div`
 `;
 
 function App(): JSX.Element {
-  const { term, theme, setTheme, options, forecast, onInputChange, onOptionSelect, onSubmit, toggleTheme } = useForecast()
+  const { term, theme, setTheme, options, forecast, onInputChange, onOptionSelect, onSubmit, toggleTheme } = useForecast();
   useLayoutEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme && ["dark", "light"].includes(savedTheme)) {
       return setTheme(savedTheme);
     }
   }, []);
+
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

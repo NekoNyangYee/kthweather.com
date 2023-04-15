@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { forecastType } from "../types/Type";
 
 const NowWeather = styled.h1`
     font-size: 52px;
@@ -42,6 +43,9 @@ const ListIcon = styled.img`
         width: 14vh;
     }
     @media screen and (max-height: 950px) and (max-width: 480px) {
+        width: 8vh;
+    }
+    @media screen and (min-width: 1200px) {
         width: 8vh;
     }
 `;
@@ -196,7 +200,11 @@ const NowForecastInfo = styled.p`
     }
 `;
 
-export const Forecast = ({ data }: any): JSX.Element => {
+interface Props {
+    data: forecastType
+}
+
+export const Forecast = ({ data }: Props): JSX.Element => {
 
     const today = data.list[0]
     const Degree = ({ temp }: { temp: number }): JSX.Element => (
@@ -312,7 +320,7 @@ export const Forecast = ({ data }: any): JSX.Element => {
             <BoxContainer>
                 <SunInfo>
                     <BoxTitle>풍속</BoxTitle>
-                    <SunTime>{today.wind.speed}m/s</SunTime>
+                    <SunTime>{Math.round(today.wind.speed)}m/s</SunTime>
                     <WindIcon src="./img/wind.svg" />
                 </SunInfo>
                 <SunInfo>
@@ -344,7 +352,6 @@ export const Forecast = ({ data }: any): JSX.Element => {
                     <LinkWeb href="https://openweathermap.org/">제공: OpenWeather</LinkWeb>
                 </InfoRight>
             </InfoContainer>
-
         </>
     )
 
