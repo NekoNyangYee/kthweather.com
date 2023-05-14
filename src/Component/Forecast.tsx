@@ -297,7 +297,7 @@ export const Forecast = ({ data }: Props): JSX.Element => {
                 <MoreWeather>
                     {data.list.map((itm: any, i: any) => (
                         <WeatherList key={i}>
-                            <WeatherTime>{i === 0 ? '지금' : `${new Date(itm.dt * 1000).getHours()}시`}</WeatherTime>
+                            <WeatherTime>{i === 0 ? '지금' : `~ ${new Date(itm.dt * 1000).getHours()}시`}</WeatherTime>
                             <ListIcon src={`http://openweathermap.org/img/wn/${itm.weather[0].icon}@2x.png`} />
                             <Degree temp={Math.round(itm.main.temp)} />
                         </WeatherList>
